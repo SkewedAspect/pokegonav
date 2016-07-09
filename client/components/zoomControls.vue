@@ -38,7 +38,7 @@
 		data()
 		{
 			return {
-				watchPos: true
+				watchPos: false
 			}
 		},
 		methods: {
@@ -66,11 +66,14 @@
 
 				if(this.watchPos)
 				{
-					geoSvc.watchLocation();
+					mapSvc.disablePan();
+					geoSvc.updateLocation();
+					geoSvc.autoUpdateView = true;
 				}
 				else
 				{
-					geoSvc.unwatchLocation();
+					mapSvc.enablePan();
+					geoSvc.autoUpdateView = false;
 				} // end if
 			}
 		}

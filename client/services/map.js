@@ -11,6 +11,8 @@ import ol from 'openlayers';
 class MapService {
     constructor()
     {
+        this.panEnabled = false;
+        
         this.map = new ol.Map({
             layers: [
                 new ol.layer.Tile({
@@ -18,6 +20,9 @@ class MapService {
                     source: new ol.source.OSM()
                 })
             ],
+            interactions: ol.interaction.defaults({
+                dragPan: false
+            }),
             controls: [],
             view: new ol.View({
                 center: [0, 0],
@@ -25,7 +30,31 @@ class MapService {
                 maxZoom: 20
             })
         });
+
+        // Store this seperately, because we'll be adding and removing it.
+        this.dragPan = new ol.interaction.DragPan();
+        
+        // Add it to the map
+        this.enablePan();
     } // end constructor
+
+    enablePan()
+    {
+        if(!this.panEnabled)
+        {
+            this.map.addInteraction(this.dragPan);
+            this.panEnabled = true;
+        } // end if
+    } // end enablePan
+    
+    disablePan()
+    {
+        if(this.panEnabled)
+        {
+            this.map.removeInteraction(this.dragPan);
+            this.panEnabled = false;
+        } // end if
+    } // end disablePan()
     
     setTarget(target)
     {
