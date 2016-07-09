@@ -15,7 +15,7 @@ import mapSvc from './map';
 class GeolocationService {
     constructor()
     {
-        this.currentPos = undefined;
+        this.currentPos = new ol.Feature(new ol.geom.Point([0, 0]));
 
         // Setup GeoLocation
         if("geolocation" in navigator)
@@ -26,6 +26,13 @@ class GeolocationService {
                 content: 'Geolocation Enabled.',
                 timeout: 2000
             });
+            
+            // Watch the current position, and keep it updated
+            this.watchHandle = navigator.geolocation.watchPosition(this._updatePos.bind(this), this._errorGettingPos.bind(this), {
+                    enableHighAccuracy: true,
+                    maximumAge        : 30000,
+                    timeout           : 27000
+                });
         }
         else
         {
@@ -38,7 +45,7 @@ class GeolocationService {
         } // end if
     } // end constructor
 
-    _updatePos(position, animate)
+    _updatePos(position)
     {
         var map = mapSvc.map;
         var view = mapSvc.map.getView();
@@ -47,17 +54,18 @@ class GeolocationService {
             position.coords.longitude,
             position.coords.latitude
         ]);
+        
+        toastSvc.create({
+            type: 'info',
+            dismissible: true,
+            content: 'Updating location...',
+            timeout: 1000
+        });
 
         // Store the current position
-        this.currentPos = new ol.geom.Point(coords);
-
-        // Fit the view to the point
-        view.fit(this.currentPos, map.getSize(), {
-            padding: [5, 5, 5, 5],
-            maxZoom: 17
-        });
+        this.currentPos.getGeometry().setCoordinates(coords);
     } // end _updatePos
-
+    
     _errorGettingPos()
     {
         toastSvc.create({
@@ -72,29 +80,19 @@ class GeolocationService {
     {
         return new Promise((resolve, reject) => { navigator.geolocation.getCurrentPosition(resolve, reject); })
             .then(this._updatePos.bind(this))
-            .catch(this._errorGettingPos.bind(this));
-    } // end updateLocation
-
-    watchLocation()
-    {
-        return new Promise((resolve, reject) =>
+            .then(() =>
             {
-                this.watchHandle = navigator.geolocation.watchPosition(resolve, reject, {
-                    enableHighAccuracy: true,
-                    maximumAge        : 30000,
-                    timeout           : 27000
+                var map = mapSvc.map;
+                var view = mapSvc.map.getView();
+                
+                // Fit the view to the point
+                view.fit(this.currentPos.getGeometry(), map.getSize(), {
+                    padding: [5, 5, 5, 5],
+                    maxZoom: 17
                 });
             })
-            .then(this._updatePos.bind(this))
-            .then(this.updateLocation.bind(this))
             .catch(this._errorGettingPos.bind(this));
-    } // end watchLocation
-
-    unwatchLocation()
-    {
-        navigator.geolocation.clearWatch(this.watchHandle);
-        this.watchHandle = undefined;
-    } // end unwatchLocation
+    } // end updateLocation
 } // end GeolocationService
 
 //----------------------------------------------------------------------------------------------------------------------

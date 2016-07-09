@@ -7,7 +7,7 @@
 module.exports = {
     debug: true,
     http: {
-        port: 8008
+        port: 8080
     }
 }; // end exports
 
