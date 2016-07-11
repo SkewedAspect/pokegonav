@@ -1,35 +1,44 @@
 //----------------------------------------------------------------------------------------------------------------------
-/// StateService
+/// PokemonService
 ///
 /// @module
 //----------------------------------------------------------------------------------------------------------------------
 
 import _ from 'lodash';
-import Vue from 'vue';
+import $http from 'axios';
+
+import stateSvc from './state'
 
 //----------------------------------------------------------------------------------------------------------------------
 
-class StateService {
+class PokemonService {
     constructor()
     {
-        this.state = {
-            app: undefined,
-            pokemon: []
-        };
-
-        // Build getter/setters for pure JS modules to use
-        _.forIn(this.state, (value, key) =>
-        {
-            Object.defineProperty(this, key, {
-                get: function(){ return this.state[key]; },
-                set: function(val) { Vue.set(this.state, key, val); }
-            })
-        });
+        $http.get('/pokemon')
+            .then((response) =>
+            {
+                stateSvc.pokemon = response.data;
+            });
     } // end constructor
-} // end StateService
+    
+    get pokemon(){ return stateSvc.pokemon; }
+    
+    _buildDisplayName(name)
+    {
+        return (_.map(name.split(' '), (part) =>
+        {
+            return part.charAt(0).toUpperCase() + part.slice(1);
+        })).join(' ');
+    } // end _buildDisplayName
+    
+    getDisplayName(number)
+    {
+        return this._buildDisplayName(this.pokemon[number]);
+    } // end getDisplayName
+} // end PokemonService
 
 //----------------------------------------------------------------------------------------------------------------------
 
-export default new StateService();
+export default new PokemonService();
 
 //----------------------------------------------------------------------------------------------------------------------
