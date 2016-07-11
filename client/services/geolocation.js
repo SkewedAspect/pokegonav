@@ -57,13 +57,6 @@ class GeolocationService {
             position.coords.latitude
         ]);
         
-        toastSvc.create({
-            type: 'info',
-            dismissible: true,
-            content: 'Updating location...',
-            timeout: 1000
-        });
-
         // Store the current position
         this.currentPos.getGeometry().setCoordinates(coords);
         
@@ -75,14 +68,8 @@ class GeolocationService {
     
     _updateView()
     {
-        var map = mapSvc.map;
         var view = mapSvc.map.getView();
-
-        // Fit the view to the point
-        view.fit(this.currentPos.getGeometry(), map.getSize(), {
-            padding: [5, 5, 5, 5],
-            maxZoom: 17
-        });
+        view.setCenter(this.currentPos.getGeometry().getCoordinates());
     } // end updateView
     
     _errorGettingPos()
@@ -97,9 +84,20 @@ class GeolocationService {
 
     updateLocation()
     {
+        var map = mapSvc.map;
+        var view = mapSvc.map.getView();
+        
         return new Promise((resolve, reject) => { navigator.geolocation.getCurrentPosition(resolve, reject); })
             .then(this._updatePos.bind(this))
             .then(this._updateView.bind(this))
+            .then(() =>
+            {
+                // Fit the view to the point
+                view.fit(this.currentPos.getGeometry(), map.getSize(), {
+                    padding: [5, 5, 5, 5],
+                    maxZoom: 17
+                });
+            })
             .catch(this._errorGettingPos.bind(this));
     } // end updateLocation
 } // end GeolocationService
