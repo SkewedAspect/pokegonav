@@ -69,9 +69,9 @@ class GeolocationService {
         return Promise.resolve();
     } // end updateView
 
-    _errorGettingPos()
+    _errorGettingPos(error)
     {
-        console.error('Unable to retrieve your location.');
+        console.error('Unable to retrieve your location.', error);
         
         toastSvc.create({
             type: 'danger',
@@ -84,9 +84,9 @@ class GeolocationService {
     updateLocation()
     {
         return new Promise((resolve, reject) => { navigator.geolocation.getCurrentPosition(resolve, reject); })
-            .then(() =>
+            .then((position) =>
             {
-                this._updatePos();
+                this._updatePos(position);
                 this._updateView();
             })
             .catch(this._errorGettingPos.bind(this));
