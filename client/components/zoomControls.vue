@@ -46,18 +46,12 @@
 			{
 				var view = mapSvc.map.getView();
 				var zoom = view.getZoom();
-
-				console.log('in:', zoom++);
-
 				view.setZoom(zoom++);
 			},
 			zoomOut()
 			{
 				var view = mapSvc.map.getView();
 				var zoom = view.getZoom();
-
-				console.log('out:', zoom--);
-
 				view.setZoom(zoom--);
 			},
 			toggleWatchPos()
