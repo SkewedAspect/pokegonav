@@ -34,7 +34,8 @@ var logger = logging.loggerFor(module);
 //----------------------------------------------------------------------------------------------------------------------
 
 // Routes
-import exampleRouter  from './routes/example';
+import captureRouter  from './routes/capture';
+import pokeRouter  from './routes/pokemon';
 import routeUtils from './routes/utils';
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -67,7 +68,8 @@ app.use(session({
 app.use(express.static(path.resolve('./dist')));
 
 // Set up our application routes
-app.use('/example', exampleRouter);
+app.use('/pokemon', pokeRouter);
+app.use('/capture', captureRouter);
 
 // Serve index.html
 app.get('/', routeUtils.serveIndex);

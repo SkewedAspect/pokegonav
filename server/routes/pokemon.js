@@ -1,13 +1,12 @@
 //----------------------------------------------------------------------------------------------------------------------
-// Routes for accounts
+// Routes for the list of all 151 pokemon
 //
-// @module accounts.js
+// @module
 //----------------------------------------------------------------------------------------------------------------------
 
-import _ from 'lodash';
 import express from 'express';
 
-import routeUtils from './utils';
+import pokemonList from '../data/pokemon.json';
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -19,10 +18,7 @@ var router = express.Router();
 
 router.get('/', function(req, resp)
 {
-    routeUtils.interceptHTML(resp, function()
-    {
-        resp.json('{ message: "Welcome!" }')
-    });
+    resp.json(pokemonList);
 });
 
 //----------------------------------------------------------------------------------------------------------------------
