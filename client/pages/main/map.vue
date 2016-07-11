@@ -34,7 +34,14 @@
 		{
 			mapSvc.setTarget('map');
 
-			setTimeout(() => geoSvc.updateLocation(), 2000);
+			setTimeout(() =>
+			{
+				geoSvc.updateLocation()
+					.then(() =>
+					{
+						geoSvc.zoomToLocation();
+					})
+			}, 2000);
 		}
     }
 </script>

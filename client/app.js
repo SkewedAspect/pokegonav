@@ -17,6 +17,7 @@ import vueboot from 'vueboot';
 import stateSvc from './services/state';
 
 // Pages
+import AddControl from './components/addPoint.vue';
 import ZoomControls from './components/zoomControls.vue';
 import MapComponent from './pages/main/map.vue';
 
@@ -31,6 +32,7 @@ stateSvc.app = new Vue({
     components: {
         toast: vueboot.toast,
         zoom: ZoomControls,
+        add: AddControl,
         map: MapComponent
     }
 });

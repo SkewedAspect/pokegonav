@@ -61,8 +61,12 @@
 				if(this.watchPos)
 				{
 					mapSvc.disablePan();
-					geoSvc.updateLocation();
-					geoSvc.autoUpdateView = true;
+					geoSvc.updateLocation()
+						.then(() =>
+						{
+							geoSvc.zoomToLocation();
+							geoSvc.autoUpdateView = true;
+						});
 				}
 				else
 				{

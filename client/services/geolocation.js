@@ -21,7 +21,7 @@ class GeolocationService {
 
         // Setup currentPosLayer
         CurrentPosLayer.addFeature(this.currentPos);
-        
+
         // Setup GeoLocation
         if("geolocation" in navigator)
         {
@@ -31,7 +31,7 @@ class GeolocationService {
                 content: 'Geolocation Enabled.',
                 timeout: 2000
             });
-            
+
             // Watch the current position, and keep it updated
             this.watchHandle = navigator.geolocation.watchPosition(this._updatePos.bind(this), this._errorGettingPos.bind(this), {
                     enableHighAccuracy: true,
@@ -56,22 +56,24 @@ class GeolocationService {
             position.coords.longitude,
             position.coords.latitude
         ]);
-        
+
         // Store the current position
         this.currentPos.getGeometry().setCoordinates(coords);
-        
+
         if(this.autoUpdateView)
         {
             this._updateView();
         } // end if
     } // end _updatePos
-    
+
     _updateView()
     {
         var view = mapSvc.map.getView();
         view.setCenter(this.currentPos.getGeometry().getCoordinates());
+
+        return Promise.resolve();
     } // end updateView
-    
+
     _errorGettingPos()
     {
         toastSvc.create({
@@ -84,22 +86,25 @@ class GeolocationService {
 
     updateLocation()
     {
-        var map = mapSvc.map;
-        var view = mapSvc.map.getView();
-        
         return new Promise((resolve, reject) => { navigator.geolocation.getCurrentPosition(resolve, reject); })
             .then(this._updatePos.bind(this))
             .then(this._updateView.bind(this))
-            .then(() =>
-            {
-                // Fit the view to the point
-                view.fit(this.currentPos.getGeometry(), map.getSize(), {
-                    padding: [5, 5, 5, 5],
-                    maxZoom: 17
-                });
-            })
             .catch(this._errorGettingPos.bind(this));
     } // end updateLocation
+
+    zoomToLocation()
+    {
+        var map = mapSvc.map;
+        var view = mapSvc.map.getView();
+
+        console.log('zoom!!!');
+
+        // Fit the view to the point
+        view.fit(this.currentPos.getGeometry(), map.getSize(), {
+            padding: [5, 5, 5, 5],
+            maxZoom: 17
+        });
+    } // end zoomToLocation
 } // end GeolocationService
 
 //----------------------------------------------------------------------------------------------------------------------
