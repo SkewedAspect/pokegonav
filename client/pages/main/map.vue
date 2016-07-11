@@ -36,11 +36,8 @@
 
 			setTimeout(() =>
 			{
-				geoSvc.updateLocation()
-					.then(() =>
-					{
-						geoSvc.zoomToLocation();
-					})
+				geoSvc.updateLocation();
+                geoSvc.zoomToLocation();
 			}, 2000);
 		}
     }

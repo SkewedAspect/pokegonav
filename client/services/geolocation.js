@@ -25,13 +25,6 @@ class GeolocationService {
         // Setup GeoLocation
         if("geolocation" in navigator)
         {
-            toastSvc.create({
-                type: 'success',
-                dismissible: true,
-                content: 'Geolocation Enabled.',
-                timeout: 2000
-            });
-
             // Watch the current position, and keep it updated
             this.watchHandle = navigator.geolocation.watchPosition(this._updatePos.bind(this), this._errorGettingPos.bind(this), {
                     enableHighAccuracy: true,
@@ -56,6 +49,8 @@ class GeolocationService {
             position.coords.longitude,
             position.coords.latitude
         ]);
+        
+        console.log('updating pos...');
 
         // Store the current position
         this.currentPos.getGeometry().setCoordinates(coords);
@@ -76,6 +71,8 @@ class GeolocationService {
 
     _errorGettingPos()
     {
+        console.error('Unable to retrieve your location.');
+        
         toastSvc.create({
             type: 'danger',
             dismissible: true,
@@ -87,8 +84,11 @@ class GeolocationService {
     updateLocation()
     {
         return new Promise((resolve, reject) => { navigator.geolocation.getCurrentPosition(resolve, reject); })
-            .then(this._updatePos.bind(this))
-            .then(this._updateView.bind(this))
+            .then(() =>
+            {
+                this._updatePos();
+                this._updateView();
+            })
             .catch(this._errorGettingPos.bind(this));
     } // end updateLocation
 
