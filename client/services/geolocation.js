@@ -65,8 +65,6 @@ class GeolocationService {
     {
         var view = mapSvc.map.getView();
         view.setCenter(this.currentPos.getGeometry().getCoordinates());
-
-        return Promise.resolve();
     } // end updateView
 
     _errorGettingPos(error)
