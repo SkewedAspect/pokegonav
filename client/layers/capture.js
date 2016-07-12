@@ -17,7 +17,7 @@ class CurrentPositionLayer {
     constructor()
     {
         this.layer = new ol.layer.Vector({
-            source: new ol.source.Vector(),
+            source: new ol.source.Vector({ wrapX: false }),
             style: this._styleFunction.bind(this),
             updateWhileAnimating: true,
             updateWhileInteracting: true

@@ -20,7 +20,7 @@ class MapService {
             layers: [
                 new ol.layer.Tile({
                     preload: Infinity,
-                    source: new ol.source.OSM()
+                    source: new ol.source.OSM({ wrapX : false })
                 }),
                 
                 CaptureLayer.layer

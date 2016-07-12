@@ -15,6 +15,7 @@ class CurrentPositionLayer {
         this.layer = new ol.layer.Vector({
             map: mapSvc.map,
             source: new ol.source.Vector({
+                wrapX: false,
                 useSpatialIndex: false
             }),
             style: new ol.style.Style({
