@@ -7,7 +7,7 @@
 module.exports = {
     debug: true,
     http: {
-        port: 8080
+        port: process.env.SERVER_PORT || 8080
     },
     rethink: {
         host: process.env.RETHINK_DB_HOST || 'pinkie.skewedaspect.com',
