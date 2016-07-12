@@ -17,10 +17,18 @@ class CurrentPositionLayer {
             source: new ol.source.Vector({
                 useSpatialIndex: false
             }),
-            // style: [new ol.style.Style({
-            //     fill: new ol.style.Fill({ color: 'rgba(21, 137, 255, 0.9)' }),
-            //     stroke: new ol.style.Stroke({ color: 'rgba(21, 137, 255, 1)' })
-            // })],
+            style: new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 7,
+                    stroke: new ol.style.Stroke({
+                        color: '#ffffff',
+                        width: 2
+                    }),
+                    fill: new ol.style.Fill({
+                        color: '#33ccff'
+                    })
+                })
+            }),
             updateWhileAnimating: true,
             updateWhileInteracting: true
         });
