@@ -34,7 +34,7 @@ router.put('/', function(req, resp)
     point.save()
         .then(() =>
         {
-            resp.end();
+            resp.json(point);
         })
         .catch((error) =>
         {

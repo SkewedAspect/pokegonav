@@ -50,8 +50,6 @@ class GeolocationService {
             position.coords.latitude
         ]);
         
-        console.log('updating pos...');
-
         // Store the current position
         this.currentPos.getGeometry().setCoordinates(coords);
 
@@ -94,8 +92,6 @@ class GeolocationService {
     {
         var map = mapSvc.map;
         var view = mapSvc.map.getView();
-
-        console.log('zoom!!!');
 
         // Fit the view to the point
         view.fit(this.currentPos.getGeometry(), map.getSize(), {

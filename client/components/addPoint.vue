@@ -75,10 +75,15 @@
 <script type="text/babel">
 	import $http from 'axios';
 	import ol from 'openlayers';
-	import geoSvc from '../services/geolocation';
-	import stateSvc from '../services/state';
 	import pokeSvc from '../services/pokemon';
 	import { toastService as toastSvc, modal } from 'vueboot'
+
+	// Services
+	import geoSvc from '../services/geolocation';
+	import stateSvc from '../services/state';
+
+	// Layers
+	import CaptureLayer from '../layers/capture';
 
     export default {
 		components: {
@@ -114,6 +119,10 @@
 				this.newPoint.point = ol.proj.toLonLat(geoSvc.currentPos.getGeometry().getCoordinates());
 
 				$http.put('/capture', this.newPoint)
+					.then((response) =>
+					{
+						CaptureLayer.addCapture(response.data);
+					})
 					.catch((error) =>
 					{
 						console.log('Failed to save point.', error);
