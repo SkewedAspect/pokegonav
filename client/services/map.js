@@ -6,6 +6,9 @@
 
 import ol from 'openlayers';
 
+// Layers
+import CaptureLayer from '../layers/capture';
+
 //----------------------------------------------------------------------------------------------------------------------
 
 class MapService {
@@ -18,7 +21,9 @@ class MapService {
                 new ol.layer.Tile({
                     preload: Infinity,
                     source: new ol.source.OSM()
-                })
+                }),
+                
+                CaptureLayer.layer
             ],
             interactions: ol.interaction.defaults({
                 dragPan: false

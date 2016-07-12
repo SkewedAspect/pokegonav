@@ -25,7 +25,8 @@ db.CapturePoint = thinky.createModel('capture', {
     pokemon: type.string().enum(_.values(pokemonList)).required(),
     point: type.point().required(),
     incense: type.boolean().default(false),
-    level: type.number().integer().min(1).optional()
+    level: type.number().integer().min(1).optional(),
+    timestamp: type.date().required()
 });
 
 //----------------------------------------------------------------------------------------------------------------------

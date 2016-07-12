@@ -20,9 +20,9 @@ class PokemonService {
                 stateSvc.pokemon = response.data;
             });
     } // end constructor
-    
+
     get pokemon(){ return stateSvc.pokemon; }
-    
+
     _buildDisplayName(name)
     {
         return (_.map(name.split(' '), (part) =>
@@ -30,7 +30,13 @@ class PokemonService {
             return part.charAt(0).toUpperCase() + part.slice(1);
         })).join(' ');
     } // end _buildDisplayName
-    
+
+    getPokeID(name)
+    {
+        name = name.toLowerCase();
+        return _.findKey(stateSvc.pokemon, (item) => item == name);
+    } // end  get PokeID
+
     getDisplayName(number)
     {
         return this._buildDisplayName(this.pokemon[number]);

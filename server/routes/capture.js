@@ -28,6 +28,7 @@ router.get('/', function(req, resp)
 
 router.put('/', function(req, resp)
 {
+    req.body.timestamp = req.body.timestamp || new Date();
     var point = new models.CapturePoint(req.body);
 
     point.save()
