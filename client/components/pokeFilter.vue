@@ -63,6 +63,8 @@
 				set: function(val)
 				{
 					this.state.filter = val;
+
+					CaptureLayer.redraw();
 				}
 			}
 		},
