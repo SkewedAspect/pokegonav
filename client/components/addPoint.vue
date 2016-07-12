@@ -1,14 +1,20 @@
 <template>
 	<div id="add-btn">
-		<button class="btn btn-info" @click="showModal()">
-			<i class="fa fa-plus"></i>
-			Capture Point
-		</button>
+		<div class="btn-group">
+			<button class="btn btn-info" @click="showModal()">
+				<i class="fa fa-plus"></i>
+				Select Location
+			</button>
+			<button class="btn btn-primary" @click="showModal()">
+				<i class="fa fa-plus"></i>
+				Current
+			</button>
+		</div>
 		<modal v-ref:add-modal>
 			<div class="modal-header" slot="header">
 				<h4 class="modal-title">
 					<i class="fa fa-plus"></i>
-					Add Capture Location
+					Add Capture Locatio
 				</h4>
 			</div>
 			<div class="modal-body" slot="body">
