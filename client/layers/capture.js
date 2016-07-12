@@ -22,6 +22,19 @@ class CurrentPositionLayer {
             updateWhileAnimating: true,
             updateWhileInteracting: true
         });
+        
+        this.drawnPoints = new ol.Collection();
+
+        this.draw = new ol.interaction.Draw({
+            features: this.drawnPoints,
+            type: 'Point'
+        });
+        
+        // Deactivate this interaction
+        this.draw.setActive(false);
+        
+        // Listen for when new features are added.
+        this.drawnPoints.on('add', this._handleDraw.bind(this));
 
         this.refresh();
     } // end constructor
@@ -50,6 +63,16 @@ class CurrentPositionLayer {
 
         return null;
     } // end _styleFunction
+    
+    _handleDraw(event)
+    {
+        var point = event.element;
+        
+        if(this.drawCallback)
+        {
+            this.drawCallback(ol.proj.toLonLat(point.getGeometry().getCoordinates()));
+        } // end if
+    } // end _handleDraw
 
     addCapture(capture)
     {
@@ -66,17 +89,29 @@ class CurrentPositionLayer {
 
         this.layer.getSource().addFeature(feature);
     } // end addCapture
+    
+    enableDraw(callback)
+    {
+        this.draw.setActive(true);
+        this.drawCallback = callback;
+    } // end enableDraw
+    
+    disableDraw()
+    {
+        this.draw.setActive(fale);
+        this.drawCallback = undefined;
+    } // end enableDraw
 
     setVisible(visible)
     {
         this.layer.setVisible(visible);
     } // end setVisible
-    
+
     redraw()
     {
         this.layer.getSource().changed();
     } // end redraw()
-    
+
     refresh()
     {
         this.layer.getSource().clear();

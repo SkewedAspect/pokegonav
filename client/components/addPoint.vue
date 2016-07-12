@@ -1,20 +1,24 @@
 <template>
 	<div id="add-btn">
-		<div class="btn-group">
-			<button class="btn btn-info" @click="showModal()">
-				<i class="fa fa-plus"></i>
-				Select Location
-			</button>
-			<button class="btn btn-primary" @click="showModal()">
-				<i class="fa fa-plus"></i>
-				Current
-			</button>
+		<div class="buttons-row">
+			<div class="col-xs-6">
+                <button class="btn btn-info btn-block" :class="{ active: select }" @click="selectLocation()">
+                    <i class="fa fa-plus"></i>
+                    Select Loc<span class="if-room">ation</span>
+                </button>
+			</div>
+			<div class="col-xs-6">
+                <button class="btn btn-primary btn-block" @click="currentLocation()" :disabled="select">
+                    <i class="fa fa-plus"></i>
+                    Current Loc<span class="if-room">ation</span>
+                </button>
+			</div>
 		</div>
 		<modal v-ref:add-modal>
 			<div class="modal-header" slot="header">
 				<h4 class="modal-title">
 					<i class="fa fa-plus"></i>
-					Add Capture Locatio
+					Add Capture Point
 				</h4>
 			</div>
 			<div class="modal-body" slot="body">
@@ -35,12 +39,12 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-3">Incense</label>
+						<label class="col-sm-3">Incense/Lure</label>
 						<div class="col-sm-9">
 							<label class="c-input c-checkbox">
 								<input type="checkbox" v-model="newPoint.incense">
 								<span class="c-indicator"></span>
-								Pokemon was spawned by incense
+								Pokemon was spawned by an incense or lure
 							</label>
 						</div>
 					</div>
@@ -69,11 +73,43 @@
 		position: absolute;
 		bottom: 10px;
 		right: 10px;
+		width: 400px;
 		opacity: 0.85;
 		z-index: 9001;
 
+		@media(max-width: 450px)
+		{
+			width: auto;
+			left: 10px;
+		}
+
 		&:hover {
 			opacity: 1.0;
+		}
+
+		.buttons-row {
+			width: 100%;
+
+			.col-xs-6 {
+				padding: 0;
+
+				&:first-child {
+					padding-right: 5px;
+				}
+
+				&:last-child {
+					padding-left: 5px;
+				}
+			}
+		}
+
+		.if-room {
+			display: inline;
+
+			@media(max-width: 320px)
+			{
+				display: none;
+			}
 		}
 	}
 </style>
@@ -99,6 +135,7 @@
         {
             return {
 				state: stateSvc.state,
+				select: false,
 				newPoint: {
 					pokemon: "",
 					point: [],
@@ -119,10 +156,34 @@
 			showModal(){ this.$refs.addModal.showModal(); },
 			hideModal(){ this.$refs.addModal.hideModal(); },
 
+			currentLocation()
+			{
+				// Do this the moment the button is tapped, not on save, in case the user moves.
+				this.newPoint.point = ol.proj.toLonLat(geoSvc.currentPos.getGeometry().getCoordinates());
+				this.showModal();
+			},
+
+			selectLocation()
+			{
+				this.select = !this.select;
+
+				if(this.select)
+				{
+					CaptureLayer.enableDraw((coords) =>
+					{
+						this.newPoint.point = coords;
+						this.showModal();
+					});
+				}
+				else
+				{
+					CaptureLayer.disableDraw();
+				} // end if
+			},
+
 			save()
 			{
 				this.hideModal();
-				this.newPoint.point = ol.proj.toLonLat(geoSvc.currentPos.getGeometry().getCoordinates());
 
 				$http.put('/capture', this.newPoint)
 					.then((response) =>

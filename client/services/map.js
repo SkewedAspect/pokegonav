@@ -15,14 +15,14 @@ class MapService {
     constructor()
     {
         this.panEnabled = false;
-        
+
         this.map = new ol.Map({
             layers: [
                 new ol.layer.Tile({
                     preload: Infinity,
                     source: new ol.source.OSM({ wrapX : false })
                 }),
-                
+
                 CaptureLayer.layer
             ],
             interactions: ol.interaction.defaults({
@@ -36,9 +36,12 @@ class MapService {
             })
         });
 
+        // Add the Draw interaction for the Capture Layer
+        this.map.addInteraction(CaptureLayer.draw);
+
         // Store this seperately, because we'll be adding and removing it.
         this.dragPan = new ol.interaction.DragPan();
-        
+
         // Add it to the map
         this.enablePan();
     } // end constructor
@@ -51,7 +54,7 @@ class MapService {
             this.panEnabled = true;
         } // end if
     } // end enablePan
-    
+
     disablePan()
     {
         if(this.panEnabled)
@@ -60,7 +63,7 @@ class MapService {
             this.panEnabled = false;
         } // end if
     } // end disablePan()
-    
+
     setTarget(target)
     {
         this.map.setTarget(target);
