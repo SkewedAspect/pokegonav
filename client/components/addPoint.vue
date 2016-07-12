@@ -8,7 +8,7 @@
                 </button>
 			</div>
 			<div class="col-xs-6">
-                <button class="btn btn-primary btn-block" @click="currentLocation()" :disabled="select">
+                <button class="btn btn-primary btn-block" @click="currentLocation()">
                     <i class="fa fa-plus"></i>
                     Current Loc<span class="if-room">ation</span>
                 </button>
@@ -158,6 +158,8 @@
 
 			currentLocation()
 			{
+				CaptureLayer.disableDraw();
+
 				// Do this the moment the button is tapped, not on save, in case the user moves.
 				this.newPoint.point = ol.proj.toLonLat(geoSvc.currentPos.getGeometry().getCoordinates());
 				this.showModal();

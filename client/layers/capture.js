@@ -98,7 +98,7 @@ class CurrentPositionLayer {
     
     disableDraw()
     {
-        this.draw.setActive(fale);
+        this.draw.setActive(false);
         this.drawCallback = undefined;
     } // end enableDraw
 
