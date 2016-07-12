@@ -14,7 +14,8 @@ class StateService {
     {
         this.state = {
             app: undefined,
-            pokemon: []
+            pokemon: [],
+            filter: ""
         };
 
         // Build getter/setters for pure JS modules to use

@@ -15,8 +15,10 @@ import vueboot from 'vueboot';
 
 // Services
 import stateSvc from './services/state';
+import pokeSvc from './services/pokemon';
 
-// Pages
+// Controls
+import PokeFilter from './components/pokeFilter.vue';
 import AddControl from './components/addPoint.vue';
 import ZoomControls from './components/zoomControls.vue';
 import MapComponent from './pages/main/map.vue';
@@ -33,6 +35,7 @@ stateSvc.app = new Vue({
         toast: vueboot.toast,
         zoom: ZoomControls,
         add: AddControl,
+        filter: PokeFilter,
         map: MapComponent
     }
 });

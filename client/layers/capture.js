@@ -8,7 +8,7 @@ import _ from 'lodash'
 import $http from 'axios';
 import ol from 'openlayers';
 
-import geoSvc from '../services/geolocation';
+import statevc from '../services/state';
 import pokeSvc from '../services/pokemon';
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -49,6 +49,11 @@ class CurrentPositionLayer {
 
         this.layer.getSource().addFeature(feature);
     } // end addCapture
+    
+    setVisible(visible)
+    {
+        this.layer.setVisible(visible);
+    } // end setVisisble
     
     refresh()
     {
