@@ -30,10 +30,11 @@ class MapService extends EventEmitter {
                 PortalLayer.layer,
                 CaptureLayer.layer
             ],
+            controls: [],
             interactions: ol.interaction.defaults({
+                pinchRotate:false,
                 dragPan: false
             }),
-            controls: [],
             view: new ol.View({
                 center: ol.proj.fromLonLat([-101.87, 33.57]),
                 zoom: 12,
@@ -60,7 +61,7 @@ class MapService extends EventEmitter {
         // Setup View events
         view.on('change:center', this.emit.bind(this, 'view changed'));
         view.on('change:resolution', this.emit.bind(this, 'view changed'));
-        
+
         // Bind to self events
         this.on('view changed', () =>
         {
