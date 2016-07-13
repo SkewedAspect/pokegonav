@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------------------------------------------------
-/// CurrentPositionLayer
+/// CapturePointsLayer
 ///
 /// @module
 //----------------------------------------------------------------------------------------------------------------------
@@ -14,7 +14,7 @@ import pokeSvc from '../services/pokemon';
 
 //----------------------------------------------------------------------------------------------------------------------
 
-class CurrentPositionLayer {
+class CapturePointsLayer {
     constructor()
     {
         this.layer = new ol.layer.Vector({
@@ -36,41 +36,24 @@ class CurrentPositionLayer {
 
         // Listen for when new features are added.
         this.drawnPoints.on('add', this._handleDraw.bind(this));
-
+        
         this.refresh();
     } // end constructor
 
-    _buildStyle(feature)
-    {
-        var pokeID = feature.get('pokemonID');
-
-        if(pokeID)
-        {
-            return styleSvc.getPokeStyle(pokeID);
-        } // end if
-    } // end _buildStyle
 
     _styleFunction(feature, resolution)
     {
         if(_.isEmpty(stateSvc.state.filter) || feature.get('name').toLowerCase() == stateSvc.state.filter)
         {
+            var pokeID = feature.get('pokemonID');
             if(resolution < 20)
             {
-                return this._buildStyle(feature);
+                return styleSvc.getPokeStyle(pokeID);
             }
             else if(resolution < 300)
             {
-                return new ol.style.Style({
-                    image: new ol.style.Circle({
-                        radius: 5,
-                        fill: new ol.style.Fill({ color: 'rgba(200, 200, 0, 0.75)' }),
-                        stroke: new ol.style.Stroke({
-                            color: 'rgba(255, 255, 255, 1.0)',
-                            width: 1
-                        })
-                    })
-                });
-            }
+                return styleSvc.zoomedPokemonStyle;
+            } // end if
         } // end if
 
         return null;
@@ -138,11 +121,11 @@ class CurrentPositionLayer {
                 });
             });
     } // end refresh
-} // end CurrentPositionLayer
+} // end CapturePointsLayer
 
 //----------------------------------------------------------------------------------------------------------------------
 
-export default new CurrentPositionLayer();
+export default new CapturePointsLayer();
 
 //----------------------------------------------------------------------------------------------------------------------
 
