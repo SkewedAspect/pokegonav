@@ -23,17 +23,17 @@ class CurrentPositionLayer {
             updateWhileAnimating: true,
             updateWhileInteracting: true
         });
-        
+
         this.drawnPoints = new ol.Collection();
 
         this.draw = new ol.interaction.Draw({
             features: this.drawnPoints,
             type: 'Point'
         });
-        
+
         // Deactivate this interaction
         this.draw.setActive(false);
-        
+
         // Listen for when new features are added.
         this.drawnPoints.on('add', this._handleDraw.bind(this));
 
@@ -54,16 +54,32 @@ class CurrentPositionLayer {
     {
         if(_.isEmpty(stateSvc.state.filter) || feature.get('name').toLowerCase() == stateSvc.state.filter)
         {
-            return this._buildStyle(feature);
+            if(resolution < 20)
+            {
+                return this._buildStyle(feature);
+            }
+            else if(resolution < 300)
+            {
+                return new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 5,
+                        fill: new ol.style.Fill({ color: 'rgba(200, 200, 0, 0.75)' }),
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(255, 255, 255, 1.0)',
+                            width: 1
+                        })
+                    })
+                });
+            }
         } // end if
 
         return null;
     } // end _styleFunction
-    
+
     _handleDraw(event)
     {
         var point = event.element;
-        
+
         if(this.drawCallback)
         {
             this.drawCallback(ol.proj.toLonLat(point.getGeometry().getCoordinates()));
@@ -85,13 +101,13 @@ class CurrentPositionLayer {
 
         this.layer.getSource().addFeature(feature);
     } // end addCapture
-    
+
     enableDraw(callback)
     {
         this.draw.setActive(true);
         this.drawCallback = callback;
     } // end enableDraw
-    
+
     disableDraw()
     {
         this.draw.setActive(false);
@@ -129,3 +145,4 @@ class CurrentPositionLayer {
 export default new CurrentPositionLayer();
 
 //----------------------------------------------------------------------------------------------------------------------
+
