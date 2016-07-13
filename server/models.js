@@ -33,7 +33,7 @@ db.CapturePoint = thinky.createModel('capture', {
 
 db.Portal = thinky.createModel('portal', {
     id: type.string(),
-    type: type.string().enum(['gym', 'pokestop', 'none']).required(),
+    type: type.string().enum(['gym', 'pokestop', 'none', 'unknown']).required(),
     point: type.point().required(),
     name: type.string().required()
 });
