@@ -1,14 +1,14 @@
 {
-  "name": "pokegocmpn",
+  "name": "pokegonav",
   "version": "0.0.0",
-  "description": "A Vue seed project for Bootstrap, Grunt, Express, etc.",
+  "description": "Website for tracking pokemon catches in pokemon go.",
   "main": "sever.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "author": "Christopher Case <chris.case@g33xnexus.com>",
-  "repository": "git@gitlab.com:skewed-aspect/pokegocompanion.git",
+  "repository": "git@gitlab.com:skewed-aspect/pokegonav.git",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.12.0",

@@ -1,7 +1,6 @@
-# Vue Seed
+# PokeGoNav
 
-The purpose of this project is to serve as a Vue seed in the most minimal way possible. 
-Putting aside as much baggage and opinion as possible.
+This is a website for tracking where captured pokemon exist, the location of gyms and pokestops.
 
 ## Required packages
 
@@ -10,8 +9,8 @@ Putting aside as much baggage and opinion as possible.
 ## Steps to run
 
 ```
-npm install   
-bower install   
+npm install
+bower install
 grunt
-node server.js 
+node server.js
 ```
