@@ -9,6 +9,7 @@ import $http from 'axios';
 import ol from 'openlayers';
 
 import stateSvc from '../services/state';
+import styleSvc from '../services/style';
 import pokeSvc from '../services/pokemon';
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -45,12 +46,7 @@ class CurrentPositionLayer {
 
         if(pokeID)
         {
-            return new ol.style.Style({
-                image: new ol.style.Icon({
-                    anchor: [0.5, 0.5],
-                    src: `/static/icons/${ parseInt(pokeID) }.png`
-                })
-            });
+            return styleSvc.getPokeStyle(pokeID);
         } // end if
     } // end _buildStyle
 
