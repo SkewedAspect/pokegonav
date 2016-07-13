@@ -34,6 +34,7 @@ var logger = logging.loggerFor(module);
 //----------------------------------------------------------------------------------------------------------------------
 
 // Routes
+import portalRouter  from './routes/portal';
 import captureRouter  from './routes/capture';
 import pokeRouter  from './routes/pokemon';
 import routeUtils from './routes/utils';
@@ -70,6 +71,7 @@ app.use(express.static(path.resolve('./dist')));
 // Set up our application routes
 app.use('/pokemon', pokeRouter);
 app.use('/capture', captureRouter);
+app.use('/portal', portalRouter);
 
 // Serve index.html
 app.get('/', routeUtils.serveIndex);
