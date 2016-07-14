@@ -31,9 +31,9 @@ class PortalLayer {
             $http.get(`/portal?bbox=${ coord1.join(',') },${ coord2.join(',') }`)
                 .then((response) =>
                 {
-                    _.each(response.data, (capture) =>
+                    _.each(response.data, (portal) =>
                     {
-                        this._addPortal(capture);
+                        this._addPortal(portal);
                     });
                 });
         }, 500, { maxWait: 1000 });
