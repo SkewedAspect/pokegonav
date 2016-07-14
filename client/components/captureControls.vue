@@ -3,13 +3,13 @@
 		<h5 class="text-center">Capture Location</h5>
 		<div class="buttons-row">
 			<div class="col-xs-6">
-                <button class="btn btn-info btn-block" :class="{ active: select }" @click="selectLocation()">
+                <button id="select-loc"  class="btn btn-primary-outline btn-block" :class="{ active: select }" @click="selectLocation()">
                     <i class="fa fa-plus"></i>
                     Select
                 </button>
 			</div>
 			<div class="col-xs-6">
-                <button class="btn btn-primary btn-block" @click="currentLocation()">
+                <button class="btn btn-primary-outline btn-block" @click="currentLocation()">
                     <i class="fa fa-plus"></i>
                     Current
                 </button>
@@ -78,7 +78,7 @@
 		z-index: 9011;
 
 		padding: 5px 8px;
-		background-color: rgba(250, 250, 250, 0.8);
+		background-color: rgba(250, 250, 250, 0.9);
 		border: 1px solid #ddd;
 		border-radius: 4px;
 
@@ -186,6 +186,7 @@
 				}
 				else
 				{
+					$('#select-loc').blur();
 					CaptureLayer.disableDraw();
 				} // end if
 			},
