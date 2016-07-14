@@ -5,6 +5,6 @@ Build Latest:
    stage: build
    script:
      - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-     - docker build -t registry.gitlab.com/skewed-aspect/pokegonav .
+     - docker build -t registry.gitlab.com/skewed-aspect/pokegonav:latest registry.gitlab.com/skewed-aspect/pokegonav:$CI_BUILD_REF_NAME .
      - docker push registry.gitlab.com/skewed-aspect/pokegonav:latest
      - docker push registry.gitlab.com/skewed-aspect/pokegonav:$CI_BUILD_REF_NAME
