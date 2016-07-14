@@ -17,10 +17,16 @@ body {
 	#main-app {
 		.toast-container {
 			position: fixed;
-			width: 400px;
+			width: calc(100% - 20px);
+			max-width: 450px;
 			bottom: 10px;
 			left: 10px;
 			z-index: 9001;
+
+			@media(max-width: 450px)
+			{
+				bottom: 70px;
+			}
 		}
 	}
 }
