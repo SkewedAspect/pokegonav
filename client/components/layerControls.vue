@@ -1,5 +1,5 @@
 <template>
-	<div id="poke-filter">
+	<div id="layer-controls">
         <div class="input-group">
             <span class="input-group-btn">
                 <button class="btn" :class="{ 'btn-primary': visible, 'btn-secondary': !visible }" type="button" @click="toggleVisible()">
@@ -15,7 +15,7 @@
 </template>
 
 <style rel="stylesheet/scss" lang="sass">
-	#poke-filter {
+	#layer-controls {
 		position: absolute;
 		top: 10px;
 		right: 10px;

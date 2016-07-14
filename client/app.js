@@ -19,8 +19,8 @@ import pokeSvc from './services/pokemon';
 import pkg from '../package.json';
 
 // Controls
-import PokeFilter from './components/pokeFilter.vue';
-import AddControl from './components/addPoint.vue';
+import LayerControls from './components/layerControls.vue';
+import CaptureControls from './components/captureControls.vue';
 import ZoomControls from './components/zoomControls.vue';
 import MapComponent from './pages/main/map.vue';
 
@@ -35,8 +35,8 @@ stateSvc.app = new Vue({
     components: {
         toast: vueboot.toast,
         zoom: ZoomControls,
-        add: AddControl,
-        filter: PokeFilter,
+        capture: CaptureControls,
+        layer: LayerControls,
         map: MapComponent
     }
 });

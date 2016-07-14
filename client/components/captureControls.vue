@@ -1,5 +1,5 @@
 <template>
-	<div id="add-btn">
+	<div id="capture-controls">
 		<h5 class="text-center">Capture Location</h5>
 		<div class="buttons-row">
 			<div class="col-xs-6">
@@ -70,12 +70,12 @@
 </template>
 
 <style rel="stylesheet/scss" lang="sass">
-	#add-btn {
+	#capture-controls {
 		position: absolute;
 		bottom: 10px;
 		right: 10px;
 		width: 400px;
-		z-index: 9001;
+		z-index: 9011;
 
 		padding: 5px 8px;
 		background-color: rgba(250, 250, 250, 0.8);
