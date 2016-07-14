@@ -3,6 +3,8 @@ Build Latest:
    services:
    - docker:dind
    stage: build
+   only:
+     - master
    script:
      - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
      - docker build -t registry.gitlab.com/skewed-aspect/pokegonav .
@@ -13,8 +15,8 @@ Build Tagged:
    services:
    - docker:dind
    stage: build
-     only:
-       - /^v[0-9]{8}/
+   only:
+     - /^v[0-9]{8}/
    script:
      - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
      - docker build -t registry.gitlab.com/skewed-aspect/pokegonav .
