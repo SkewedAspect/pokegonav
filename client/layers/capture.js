@@ -36,8 +36,22 @@ class CapturePointsLayer {
 
         // Listen for when new features are added.
         this.drawnPoints.on('add', this._handleDraw.bind(this));
-        
-        this.refresh();
+
+        this._update = _.debounce((extent) =>
+        {
+            var coord1 = ol.proj.toLonLat([ extent[0], extent[1] ]);
+            var coord2 = ol.proj.toLonLat([ extent[2], extent[3] ]);
+
+            // Get the list of all of the points
+            $http.get(`/capture?bbox=${ coord1.join(',') },${ coord2.join(',') }`)
+                .then((response) =>
+                {
+                    _.each(response.data, (capture) =>
+                    {
+                        this.addCapture(capture);
+                    });
+                });
+        }, 500, { maxWait: 1000 });
     } // end constructor
 
 
@@ -107,20 +121,13 @@ class CapturePointsLayer {
         this.layer.getSource().changed();
     } // end redraw()
 
-    refresh()
+    update(extent, zoom)
     {
-        this.layer.getSource().clear();
-
-        // Get the list of all of the points
-        $http.get('/capture')
-            .then((response) =>
-            {
-                _.each(response.data, (capture) =>
-                {
-                    this.addCapture(capture);
-                });
-            });
-    } // end refresh
+        if(zoom > 9)
+        {
+            this._update(extent);
+        } // end if
+    } // end update
 } // end CapturePointsLayer
 
 //----------------------------------------------------------------------------------------------------------------------

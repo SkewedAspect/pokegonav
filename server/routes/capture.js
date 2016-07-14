@@ -4,6 +4,7 @@
 // @module
 //----------------------------------------------------------------------------------------------------------------------
 
+import _ from 'lodash';
 import express from 'express';
 import models from '../models';
 
@@ -17,13 +18,38 @@ var router = express.Router();
 
 router.get('/', function(req, resp)
 {
-    //TODO: Need to require a centerpoint and radius
+    var r = models.r;
+    if(req.query.bbox)
+    {
+        var bboxPoints = _.map(req.query.bbox.split(','), (num) => parseFloat(num));
 
-    models.CapturePoint.filter({})
-        .then((points) =>
+        if(bboxPoints.length == 4)
         {
-            resp.json(points);
-        });
+            var x1 = bboxPoints[0];
+            var y1 = bboxPoints[1];
+            var x2 = bboxPoints[2];
+            var y2 = bboxPoints[3];
+
+            var bbox = r.polygon(
+                r.point(x1, y1),
+                r.point(x2, y1),
+                r.point(x2, y2),
+                r.point(x1, y2)
+            );
+
+            return models.CapturePoint.getIntersecting(bbox, {index: 'point'})
+                .then((points) =>
+                {
+                    resp.json(points);
+                });
+        } // end if
+    } // end if
+
+    // Failure case
+    resp.status(400).json({
+        type: 'InvalidArgumentsError',
+        message: "Invalid arguments. Did you pass the `bbox` parameter?"
+    });
 });
 
 router.put('/', function(req, resp)

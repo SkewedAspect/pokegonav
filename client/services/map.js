@@ -66,6 +66,7 @@ class MapService extends EventEmitter {
         this.on('view changed', () =>
         {
             var extent = this.getExtent(50);
+            CaptureLayer.update(extent, view.getZoom());
             PortalLayer.update(extent, view.getZoom());
         });
     } // end _setupEvents
