@@ -21,12 +21,7 @@
 		right: 10px;
 		margin-left: 67px;
 		max-width: 400px;
-		opacity: 0.85;
 		z-index: 9001;
-
-		&:hover {
-			opacity: 1.0;
-		}
 	}
 </style>
 

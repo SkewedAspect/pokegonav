@@ -1,16 +1,17 @@
 <template>
 	<div id="add-btn">
+		<h5 class="text-center">Capture Location</h5>
 		<div class="buttons-row">
 			<div class="col-xs-6">
                 <button class="btn btn-info btn-block" :class="{ active: select }" @click="selectLocation()">
                     <i class="fa fa-plus"></i>
-                    Select Loc<span class="if-room">ation</span>
+                    Select
                 </button>
 			</div>
 			<div class="col-xs-6">
                 <button class="btn btn-primary btn-block" @click="currentLocation()">
                     <i class="fa fa-plus"></i>
-                    Current Loc<span class="if-room">ation</span>
+                    Current
                 </button>
 			</div>
 		</div>
@@ -74,17 +75,23 @@
 		bottom: 10px;
 		right: 10px;
 		width: 400px;
-		opacity: 0.85;
 		z-index: 9001;
+
+		padding: 5px 8px;
+		background-color: rgba(250, 250, 250, 0.8);
+		border: 1px solid #ddd;
+		border-radius: 4px;
 
 		@media(max-width: 450px)
 		{
 			width: auto;
-			left: 10px;
-		}
-
-		&:hover {
-			opacity: 1.0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			border-left: none;
+			border-right: none;
+			border-bottom: none;
+			border-radius: 0;
 		}
 
 		.buttons-row {

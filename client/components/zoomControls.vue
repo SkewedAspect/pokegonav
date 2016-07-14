@@ -21,12 +21,7 @@
 		position: absolute;
 		top: 10px;
 		left: 10px;
-		opacity: 0.85;
 		z-index: 9001;
-
-		&:hover {
-			opacity: 1.0;
-		}
 	}
 </style>
 
