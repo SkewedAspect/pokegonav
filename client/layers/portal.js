@@ -15,6 +15,9 @@ import styleSvc from '../services/style';
 class PortalLayer {
     constructor()
     {
+        this.showGyms = true;
+        this.showStops = true;
+        
         this.layer = new ol.layer.Vector({
             source: new ol.source.Vector({ wrapX: false }),
             style: this._styleFunction.bind(this),
@@ -61,11 +64,11 @@ class PortalLayer {
             switch(feature.get('type'))
             {
                 case 'gym':
-                    return styleSvc.gymStyle;
-                
+                    return this.showGyms ? styleSvc.gymStyle : null;
+
                 case 'pokestop':
-                    return styleSvc.stopStyle;
-                
+                    return this.showStops ? styleSvc.stopStyle : null;
+
                 default:
                     return styleSvc.unknownPortalStyle;
             } // end switch
@@ -75,16 +78,28 @@ class PortalLayer {
             switch(feature.get('type'))
             {
                 case 'gym':
-                    return styleSvc.zoomedGymStyle;
+                    return this.showGyms ? styleSvc.zoomedGymStyle : null;
 
                 case 'pokestop':
-                    return styleSvc.zoomedStopStyle;
+                    return this.showStops ? styleSvc.zoomedStopStyle : null;
 
                 default:
                     return styleSvc.unknownPortalStyle;
             } // end switch
         } // end if
     } // end _styleFunction
+
+    setGymsVisible(visible)
+    {
+        this.showGyms = visible;
+        this.redraw();
+    } // end setGymsVisible
+
+    setStopsVisible(visible)
+    {
+        this.showStops = visible;
+        this.redraw();
+    } // end setStopsVisible
 
     setVisible(visible)
     {
