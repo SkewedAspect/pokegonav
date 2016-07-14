@@ -16,6 +16,7 @@ import vueboot from 'vueboot';
 // Services
 import stateSvc from './services/state';
 import pokeSvc from './services/pokemon';
+import pkg from '../package.json';
 
 // Controls
 import PokeFilter from './components/pokeFilter.vue';
@@ -39,5 +40,13 @@ stateSvc.app = new Vue({
         map: MapComponent
     }
 });
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Version information
+// ---------------------------------------------------------------------------------------------------------------------
+
+window.PokeGoNav = {
+    version: pkg.version
+};
 
 // ---------------------------------------------------------------------------------------------------------------------
