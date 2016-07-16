@@ -55,6 +55,13 @@
 		width: 200px;
 		left: 10px;
 		z-index: 9001;
+
+		@media(max-width: 450px)
+		{
+			right: 10px;
+			width: auto;
+			bottom: 80px;
+		}
 	}
 </style>
 
