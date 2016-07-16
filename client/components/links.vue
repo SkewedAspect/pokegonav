@@ -25,15 +25,15 @@
 					</small>
 				</p>
 				<p>
-					PokeGoNav is an open source project to map Pokemon spawn locations, Gyms and Pokestops. It's
-					intention is to help Trainers see where certain types of pokemon spawn, and provide useful tools
-					for Trainers in their search for specific pokemon.
+					PokeGoNav is an open source project to map Pokémon spawn locations, Gyms and Pokéstops. Its
+					intention is to help Trainers see where certain types of Pokémon spawn, and provide useful tools
+					for Trainers in their search for specific Pokémon.
 				</p>
 				<p>
 					PokeGoNav is made with <i class="fa fa-heart"></i>, and is hosted personally, by an individual, at their expense. Please be respectful and conscientious.
 				</p>
 				<p class="text-center text-muted">
-					<small>PokeGoNav is <b>NOT</b> associated with Niantic, The Pokemon Company, or Nintendo.</small>
+					<small>PokeGoNav is <b>NOT</b> associated with Niantic, The Pokémon Company, or Nintendo.</small>
 				</p>
 			</div>
 			<div class="modal-footer" slot="footer">
