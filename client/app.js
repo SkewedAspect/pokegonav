@@ -22,6 +22,7 @@ import pkg from '../package.json';
 import LayerControls from './components/layerControls.vue';
 import CaptureControls from './components/captureControls.vue';
 import ZoomControls from './components/zoomControls.vue';
+import LinksComponent from './components/links.vue';
 import MapComponent from './pages/main/map.vue';
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -37,6 +38,7 @@ stateSvc.app = new Vue({
         zoom: ZoomControls,
         capture: CaptureControls,
         layer: LayerControls,
+        links: LinksComponent,
         map: MapComponent
     }
 });
