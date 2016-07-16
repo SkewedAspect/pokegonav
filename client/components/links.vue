@@ -32,6 +32,9 @@
 				<p>
 					PokeGoNav is made with <i class="fa fa-heart"></i>, and is hosted personally, by an individual, at their expense. Please be respectful and conscientious.
 				</p>
+				<p>
+					If you would like to show your appreciation, please, send a <a href="https://www.paypal.me/morgul">donation</a>.
+				</p>
 				<p class="text-center text-muted">
 					<small>PokeGoNav is <b>NOT</b> associated with Niantic, The Pokémon Company, or Nintendo.</small>
 				</p>
