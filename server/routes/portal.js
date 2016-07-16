@@ -6,11 +6,22 @@
 
 import _ from 'lodash';
 import express from 'express';
+import RateLimit from 'express-rate-limit';
 import models from '../models';
 
 //----------------------------------------------------------------------------------------------------------------------
 
 var router = express.Router();
+
+var limiter = new RateLimit({
+    headers: true,
+    windowMs: 15*60*1000,   // 15 minutes
+    max: 100,               // Start blocking after 100 requests in a 15 minute interval
+    delayAfter: 20,         // After 20 requests, we start delaying you
+    delayMs: 500            // After 20 requests, each request has an artificial 500ms delay on it.
+});
+
+router.use(limiter);
 
 //----------------------------------------------------------------------------------------------------------------------
 // REST Endpoints

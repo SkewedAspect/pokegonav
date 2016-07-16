@@ -36,13 +36,15 @@ var logger = logging.loggerFor(module);
 // Routes
 import portalRouter  from './routes/portal';
 import captureRouter  from './routes/capture';
-import pokeRouter  from './routes/pokemon';
 import routeUtils from './routes/utils';
 
 //----------------------------------------------------------------------------------------------------------------------
 
 // Build the express app
 var app = express();
+
+// We will be behind a proxy
+app.enable('trust proxy');
 
 // Basic request logging
 app.use(routeUtils.requestLogger(logger));
@@ -69,7 +71,6 @@ app.use(session({
 app.use(express.static(path.resolve('./dist')));
 
 // Set up our application routes
-app.use('/pokemon', pokeRouter);
 app.use('/capture', captureRouter);
 app.use('/portal', portalRouter);
 

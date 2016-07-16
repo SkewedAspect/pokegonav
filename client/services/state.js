@@ -7,6 +7,8 @@
 import _ from 'lodash';
 import Vue from 'vue';
 
+import pokemon from '../../server/data/pokemon.json';
+
 //----------------------------------------------------------------------------------------------------------------------
 
 class StateService {
@@ -14,7 +16,7 @@ class StateService {
     {
         this.state = {
             app: undefined,
-            pokemon: [],
+            pokemon: pokemon,
             filter: ""
         };
 

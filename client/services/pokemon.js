@@ -14,11 +14,6 @@ import stateSvc from './state'
 class PokemonService {
     constructor()
     {
-        $http.get('/pokemon')
-            .then((response) =>
-            {
-                stateSvc.pokemon = response.data;
-            });
     } // end constructor
 
     get pokemon(){ return stateSvc.pokemon; }
