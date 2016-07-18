@@ -66,9 +66,9 @@ router.get('/', function(req, resp)
 
 router.put('/', function(req, resp)
 {
-    req.body.timestamp = req.body.timestamp || new Date();
+    req.body.timestamp = new Date(req.body.timestamp) || new Date();
     var pointPromise;
-    
+
     if(req.body.spawnID)
     {
         pointPromise = models.CapturePoint.getAll(req.body.spawnID, { index: 'spawnID' })
@@ -76,13 +76,12 @@ router.put('/', function(req, resp)
             {
                 if(points.length > 0)
                 {
-                    return points[0];
+                    return _.merge(points[0], req.body);
+                }
+                else
+                {
+                    return new models.CapturePoint(req.body);
                 } // end if
-            })
-            .then((point) =>
-            {
-                // Merge the properties, taking the new properties instead.
-                point = _.merge(point, req.body);
             });
     }
     else
@@ -101,7 +100,7 @@ router.put('/', function(req, resp)
             .catch((error) =>
             {
                 console.error('Error saving point:', error.name, error);
-    
+
                 resp.status(400).json({
                     type: error.name,
                     message: error.message,
