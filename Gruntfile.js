@@ -37,7 +37,7 @@ module.exports = function(grunt)
         },
         browserify: {
             options: {
-                transform: [ ["vueify"], ["babelify"] ]
+                transform: [ ["vueify"], ["babelify"], ["envify", { _: 'purge' }] ]
             },
             debug: {
                 options: {

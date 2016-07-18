@@ -31,6 +31,7 @@
     "babelify": "^7.2.0",
     "body-parser": "^1.14.2",
     "cookie-parser": "^1.4.0",
+    "envify": "^3.4.1",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
     "grunt": "^1.0.1",
