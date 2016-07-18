@@ -66,7 +66,7 @@ router.get('/', function(req, resp)
 
 router.put('/', function(req, resp)
 {
-    req.body.timestamp = new Date(req.body.timestamp) || new Date();
+    req.body.timestamp = req.body.timestamp === undefined ? new Date() : new Date(req.body.timestamp);
     var pointPromise;
 
     if(req.body.spawnID)

@@ -27,9 +27,9 @@
 					<div class="form-group row">
 						<label for="pokemon" class="col-sm-3 form-control-label">Pokemon</label>
 						<div class="col-sm-9">
-							<select id="pokemon" class="form-control c-select" v-model="newPoint.pokemon">
+							<select id="pokemon" class="form-control c-select" v-model="newPoint.pokemonID">
 								<option value="" selected>Select a Pokemon...</option>
-								<option :value="name" v-for="(id, name) in pokemon | orderBy 'id'">{{ getDisplayName(id) }}</option>
+								<option :value="id" v-for="(id, name) in pokemon | orderBy 'id'">{{ getDisplayName(id) }}</option>
 							</select>
 						</div>
 					</div>
@@ -144,7 +144,7 @@
 				state: stateSvc.state,
 				select: false,
 				newPoint: {
-					pokemon: "",
+					pokemonID: -1,
 					point: [],
 					incense: false,
 					level: null
@@ -195,6 +195,9 @@
 			{
 				this.hideModal();
 
+				// Convert to an integer
+				this.newPoint.pokemonID = parseInt(this.newPoint.pokemonID);
+
 				$http.put('/capture', this.newPoint)
 					.then((response) =>
 					{
@@ -224,7 +227,7 @@
 			},
 			clearForm()
 			{
-				this.newPoint.pokemon = "";
+				this.newPoint.pokemonID = -1;
                 this.newPoint.point = [];
                 this.newPoint.incense = false;
                 this.newPoint.level = null;

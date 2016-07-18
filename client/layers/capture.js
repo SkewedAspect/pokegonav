@@ -91,8 +91,9 @@ class CapturePointsLayer {
         ]);
 
         var feature = new ol.Feature(new ol.geom.Point(coords));
-        var pokeID = pokeSvc.getPokeID(capture.pokemon);
+        var pokeID = capture.pokemonID || pokeSvc.getPokeID(capture.pokemon);
         feature.setId(capture.id);
+        feature.set('spawnID', capture.spawnID);
         feature.set('pokemonID', pokeID);
         feature.set('name', pokeSvc.getDisplayName(pokeID));
 

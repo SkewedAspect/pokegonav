@@ -34,6 +34,7 @@ class PokemonService {
 
     getDisplayName(number)
     {
+        number = _.padStart(number.toString(), 3, '0');
         return this._buildDisplayName(this.pokemon[number]);
     } // end getDisplayName
 } // end PokemonService
