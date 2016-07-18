@@ -4,7 +4,7 @@
 			<i class="fa fa-info-circle"></i>
 			About
 		</a>
-		<a target="_blank" href="https://gitlab.com/skewed-aspect/pokegonav/issues/new" class="text-muted pull-right">
+		<a target="_blank" href="https://gitlab.com/skewed-aspect/pokegonav/issues" class="text-muted pull-right">
 			<i class="fa fa-bug"></i>
 			Report a bug
 		</a>
