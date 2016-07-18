@@ -22,6 +22,7 @@ var db = { r, type, errors: thinky.Errors };
 
 db.CapturePoint = thinky.createModel('capture', {
     id: type.string(),
+    spawnID: type.string().optional(),
     pokemon: type.string().enum(_.values(pokemonList)).required(),
     point: type.point().required(),
     incense: type.boolean().default(false),

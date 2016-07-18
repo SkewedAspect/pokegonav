@@ -5,6 +5,7 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 import _ from 'lodash';
+import Promise from 'bluebird';
 import express from 'express';
 import RateLimit from 'express-rate-limit';
 import models from '../models';
@@ -66,23 +67,48 @@ router.get('/', function(req, resp)
 router.put('/', function(req, resp)
 {
     req.body.timestamp = req.body.timestamp || new Date();
-    var point = new models.CapturePoint(req.body);
-
-    point.save()
-        .then(() =>
-        {
-            resp.json(point);
-        })
-        .catch((error) =>
-        {
-            console.error('Error saving point:', error.name, error);
-
-            resp.status(400).json({
-                type: error.name,
-                message: error.message,
-                stack: error.stack.split('\n')
+    var pointPromise;
+    
+    if(req.body.spawnID)
+    {
+        pointPromise = models.CapturePoint.getAll(req.body.spawnID, { index: 'spawnID' })
+            .then((points) =>
+            {
+                if(points.length > 0)
+                {
+                    return points[0];
+                } // end if
+            })
+            .then((point) =>
+            {
+                // Merge the properties, taking the new properties instead.
+                point = _.merge(point, req.body);
             });
-        });
+    }
+    else
+    {
+        pointPromise = Promise.resolve(new models.CapturePoint(req.body));
+    } //end if
+
+    // Regardless, save the point.
+    pointPromise.then((point) =>
+    {
+        return point.save()
+            .then(() =>
+            {
+                resp.json(point);
+            })
+            .catch((error) =>
+            {
+                console.error('Error saving point:', error.name, error);
+    
+                resp.status(400).json({
+                    type: error.name,
+                    message: error.message,
+                    stack: error.stack.split('\n')
+                });
+            });
+    });
 });
 
 //----------------------------------------------------------------------------------------------------------------------
