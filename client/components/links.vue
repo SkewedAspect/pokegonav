@@ -57,7 +57,7 @@
 		bottom: 10px;
 		width: 200px;
 		left: 10px;
-		z-index: 9001;
+		z-index: 9301;
 
 		@media(max-width: 450px)
 		{
