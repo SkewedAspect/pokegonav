@@ -17,6 +17,8 @@ class StateService {
         this.state = {
             app: undefined,
             pokemon: pokemon,
+            autoUpdateView: false,
+            geoEnabled: false,
             filter: ""
         };
 

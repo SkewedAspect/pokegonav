@@ -9,7 +9,7 @@
                 </button>
 			</div>
 			<div class="col-xs-6">
-                <button class="btn btn-primary-outline btn-block" @click="currentLocation()">
+                <button class="btn btn-primary-outline btn-block" :disabled="captureDisabled" @click="currentLocation()">
                     <i class="fa fa-plus"></i>
                     Current
                 </button>
@@ -156,6 +156,10 @@
 			pokemon()
 			{
 				return this.state.pokemon;
+			},
+			captureDisabled()
+			{
+				return !this.state.geoEnabled;
 			}
         },
 		methods: {
