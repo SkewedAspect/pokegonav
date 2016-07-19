@@ -21,7 +21,7 @@
 						<a target="_blank" href="https://github.com/SkewedAspect/pokengonav"><i class="fa fa-github"></i> GitHub Project</a>
 					</div>
 					<small>
-						build v{{ package.version }} (<a target="_blank" href="https://gitlab.com/skewed-aspect/pokegonav/tags/v{{ package.version }}">Details</a>)
+						build v{{ package.version }} (<a target="_blank" href="https://github.com/SkewedAspect/pokengonav/releases/tag/v{{ package.version }}">Details</a>)
 					</small>
 				</p>
 				<p>
