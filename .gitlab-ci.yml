@@ -4,8 +4,7 @@ Build Latest:
    - docker:dind
    stage: build
    script:
-     - echo $PORTAL_API_KEY
      - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-     - docker build -t registry.gitlab.com/skewed-aspect/pokegonav:latest -t registry.gitlab.com/skewed-aspect/pokegonav:$CI_BUILD_REF_NAME .
+     - docker build -t registry.gitlab.com/skewed-aspect/pokegonav:latest -t registry.gitlab.com/skewed-aspect/pokegonav:$CI_BUILD_REF_NAME --build-arg PORTAL_API_KEY=$PORTAL_API_KEY.
      - docker push registry.gitlab.com/skewed-aspect/pokegonav:latest
      - docker push registry.gitlab.com/skewed-aspect/pokegonav:$CI_BUILD_REF_NAME

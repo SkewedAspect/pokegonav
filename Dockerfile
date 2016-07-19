@@ -14,4 +14,6 @@ RUN npm install \
 	&& ./node_modules/.bin/bower install --allow-root \
 	&& ./node_modules/.bin/grunt build
 
+ARG PORTAL_API_KEY
+
 CMD [ "node", "server.js" ]
