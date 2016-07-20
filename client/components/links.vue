@@ -4,7 +4,7 @@
 			<i class="fa fa-info-circle"></i>
 			About
 		</a>
-		<a target="_blank" href="https://github.com/SkewedAspect/pokengonav/issues/new" class="text-muted pull-right">
+		<a target="_blank" href="https://github.com/SkewedAspect/pokegonav/issues/new" class="text-muted pull-right">
 			<i class="fa fa-bug"></i>
 			Report a bug
 		</a>
@@ -18,10 +18,10 @@
 			<div class="modal-body" slot="body">
 				<p class="text-muted">
 					<div class="pull-right">
-						<a target="_blank" href="https://github.com/SkewedAspect/pokengonav"><i class="fa fa-github"></i> GitHub Project</a>
+						<a target="_blank" href="https://github.com/SkewedAspect/pokegonav"><i class="fa fa-github"></i> GitHub Project</a>
 					</div>
 					<small>
-						build v{{ package.version }} (<a target="_blank" href="https://github.com/SkewedAspect/pokengonav/releases/tag/v{{ package.version }}">Details</a>)
+						build v{{ package.version }} (<a target="_blank" href="https://github.com/SkewedAspect/pokegonav/releases/tag/v{{ package.version }}">Details</a>)
 					</small>
 				</p>
 				<p>
