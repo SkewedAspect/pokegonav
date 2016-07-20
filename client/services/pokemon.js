@@ -20,10 +20,13 @@ class PokemonService {
 
     _buildDisplayName(name)
     {
-        return (_.map(name.split(' '), (part) =>
+        if(name)
         {
-            return part.charAt(0).toUpperCase() + part.slice(1);
-        })).join(' ');
+            return (_.map(name.split(' '), (part) =>
+            {
+                return part.charAt(0).toUpperCase() + part.slice(1);
+            })).join(' ');
+        } // end if
     } // end _buildDisplayName
 
     getPokeID(name)
