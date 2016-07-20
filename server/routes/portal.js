@@ -53,6 +53,14 @@ router.get('/', function(req, resp)
                 .then((points) =>
                 {
                     resp.json(points);
+                })
+                .catch((error) =>
+                {
+                    resp.status(500).json({
+                        type: error.name,
+                        message: error.message,
+                        stack: error.stack.split('\n')
+                    })
                 });
         } // end if
     } // end if
@@ -86,6 +94,14 @@ router.put('/', function(req, resp)
                     {
                         resp.json(portal);
                     });
+            })
+            .catch((error) =>
+            {
+                resp.status(500).json({
+                    type: error.name,
+                    message: error.message,
+                    stack: error.stack.split('\n')
+                })
             });
     }
     else

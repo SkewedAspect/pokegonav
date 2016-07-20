@@ -53,6 +53,14 @@ router.get('/', function(req, resp)
                 .then((points) =>
                 {
                     resp.json(points);
+                })
+                .catch((error) =>
+                {
+                    resp.status(500).json({
+                        type: error.name,
+                        message: error.message,
+                        stack: error.stack.split('\n')
+                    })
                 });
         } // end if
     } // end if
@@ -101,7 +109,7 @@ router.put('/', function(req, resp)
             {
                 console.error('Error saving point:', error.name, error);
 
-                resp.status(400).json({
+                resp.status(500).json({
                     type: error.name,
                     message: error.message,
                     stack: error.stack.split('\n')
