@@ -1,6 +1,6 @@
 {
   "name": "pokegonav",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "description": "Website for tracking pokemon catches in pokemon go.",
   "main": "sever.js",
   "scripts": {
