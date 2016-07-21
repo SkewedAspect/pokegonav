@@ -29,7 +29,7 @@
             </span>
 			<select class="form-control c-select" :disabled="!layers.captured" v-model="filter">
 				<option value="">All Pokemon</option>
-				<option :value="name" v-for="(id, name) in pokemon | orderBy 'id'">{{ getDisplayName(id) }}</option>
+				<option :value="id" v-for="(id, name) in pokemon | orderBy 'id'">{{ getDisplayName(id) }}</option>
 			</select>
         </div>
 	</div>

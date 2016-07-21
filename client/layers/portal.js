@@ -17,7 +17,7 @@ class PortalLayer {
     {
         this.showGyms = true;
         this.showStops = true;
-        
+
         this.layer = new ol.layer.Vector({
             source: new ol.source.Vector({ wrapX: false }),
             style: this._styleFunction.bind(this),
@@ -61,17 +61,36 @@ class PortalLayer {
     {
         if(resolution < 20)
         {
+            var style;
             switch(feature.get('type'))
             {
                 case 'gym':
-                    return this.showGyms ? styleSvc.gymStyle : null;
+                    style = this.showGyms ? styleSvc.gymStyle : null;
+                    break;
 
                 case 'pokestop':
-                    return this.showStops ? styleSvc.stopStyle : null;
-
-                default:
-                    return styleSvc.unknownPortalStyle;
+                    style = this.showStops ? styleSvc.stopStyle : null;
+                    break;
+                //
+                // default:
+                //     return styleSvc.unknownPortalStyle;
             } // end switch
+
+            if(style)
+            {
+                // Basically, point slope formula for [[.3, 1], [20, .5]]
+                var scale = Math.abs(-((resolution * .5) / 19.7) + (19.85 / 19.7));
+
+                // Floor of 0.5 and Ceiling of 1.00
+                scale = Math.max(scale, .5);
+                scale = Math.min(scale, 1);
+
+                // Set the scale
+                style[0].getImage().setScale(scale);
+                style[1].getImage().setScale(scale);
+            } // end if
+
+            return style;
         }
         else if(resolution < 300)
         {

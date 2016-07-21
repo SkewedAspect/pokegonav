@@ -57,12 +57,28 @@ class CapturePointsLayer {
 
     _styleFunction(feature, resolution)
     {
-        if(_.isEmpty(stateSvc.state.filter) || feature.get('name').toLowerCase() == stateSvc.state.filter)
+
+        var pokeID = feature.get('pokemonID');
+        if(_.isEmpty(stateSvc.state.filter) || pokeID == stateSvc.state.filter)
         {
-            var pokeID = feature.get('pokemonID');
             if(resolution < 20)
             {
-                return styleSvc.getPokeStyle(pokeID);
+                var style = styleSvc.getPokeStyle(pokeID);
+
+                if(style)
+                {
+                    // Basically, point slope formula for [[.3, 1], [20, .5]]
+                    var scale = Math.abs(-((resolution * .5) / 19.7) + (19.85 / 19.7));
+
+                    // Floor of 0.25 and Ceiling of 1.00
+                    scale = Math.max(scale, .25);
+                    scale = Math.min(scale, 1);
+
+                    // Set the scale
+                    style.getImage().setScale(scale);
+                } // end if
+
+                return style;
             }
             else if(resolution < 300)
             {
@@ -85,19 +101,25 @@ class CapturePointsLayer {
 
     addCapture(capture)
     {
-        var coords = ol.proj.fromLonLat([
-            capture.point.coordinates[0],
-            capture.point.coordinates[1]
-        ]);
+        if(!capture.pokemonID || capture.pokemonID == -1)
+        {
+            console.warn('capture point with no pokemon id!', capture);
+        }
+        else
+        {
+            var coords = ol.proj.fromLonLat([
+                capture.point.coordinates[0],
+                capture.point.coordinates[1]
+            ]);
 
-        var feature = new ol.Feature(new ol.geom.Point(coords));
-        var pokeID = capture.pokemonID || pokeSvc.getPokeID(capture.pokemon);
-        feature.setId(capture.id);
-        feature.set('spawnID', capture.spawnID);
-        feature.set('pokemonID', pokeID);
-        feature.set('name', pokeSvc.getDisplayName(pokeID));
+            var feature = new ol.Feature(new ol.geom.Point(coords));
+            feature.setId(capture.id);
+            feature.set('spawnID', capture.spawnID);
+            feature.set('pokemonID', capture.pokemonID);
+            feature.set('name', pokeSvc.getDisplayName(capture.pokemonID));
 
-        this.layer.getSource().addFeature(feature);
+            this.layer.getSource().addFeature(feature);
+        } // end if
     } // end addCapture
 
     enableDraw(callback)

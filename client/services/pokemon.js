@@ -20,25 +20,24 @@ class PokemonService {
 
     _buildDisplayName(name)
     {
-        if(name)
+        return (_.map(name.split(' '), (part) =>
         {
-            return (_.map(name.split(' '), (part) =>
-            {
-                return part.charAt(0).toUpperCase() + part.slice(1);
-            })).join(' ');
-        } // end if
+            return part.charAt(0).toUpperCase() + part.slice(1);
+        })).join(' ');
     } // end _buildDisplayName
-
-    getPokeID(name)
-    {
-        name = name.toLowerCase();
-        return _.findKey(stateSvc.pokemon, (item) => item == name);
-    } // end  get PokeID
 
     getDisplayName(number)
     {
         number = _.padStart(number.toString(), 3, '0');
-        return this._buildDisplayName(this.pokemon[number]);
+        var name = this.pokemon[number];
+        if(name)
+        {
+            return this._buildDisplayName(this.pokemon[number]);
+        }
+        else
+        {
+            console.warn('failed to find a name for id:', number);
+        } // end if
     } // end getDisplayName
 } // end PokemonService
 
