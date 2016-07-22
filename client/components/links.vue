@@ -1,10 +1,10 @@
 <template>
     <div id="links">
-		<a href="#" class="text-muted pull-left" @click="showModal()">
+		<a href="#" class="btn btn-primary-outline btn-sm pull-left" @click="showModal()">
 			<i class="fa fa-info-circle"></i>
 			About
 		</a>
-		<a target="_blank" href="https://github.com/SkewedAspect/pokegonav/issues/new" class="text-muted pull-right">
+		<a target="_blank" href="https://github.com/SkewedAspect/pokegonav/issues/new" class="btn btn-primary-outline btn-sm pull-right">
 			<i class="fa fa-bug"></i>
 			Report a bug
 		</a>
@@ -16,14 +16,19 @@
 				</h4>
 			</div>
 			<div class="modal-body" slot="body">
-				<p class="text-muted">
-					<div class="pull-right">
-						<a target="_blank" href="https://github.com/SkewedAspect/pokegonav"><i class="fa fa-github"></i> GitHub Project</a>
+				<div class="text-muted">
+					<div class="col-xs-6">
+                        <small>build v{{ package.version }} (<a target="_blank" href="https://github.com/SkewedAspect/pokegonav/releases/tag/v{{ package.version }}">Details</a>)</small>
 					</div>
-					<small>
-						build v{{ package.version }} (<a target="_blank" href="https://github.com/SkewedAspect/pokegonav/releases/tag/v{{ package.version }}">Details</a>)
-					</small>
-				</p>
+                    <div class="col-xs-6 text-right">
+                        <a target="_blank" href="https://github.com/SkewedAspect/pokegonav" style="white-space: nowrap">
+							<i class="fa fa-github"></i> GitHub Project
+						</a>
+                        <a target="_blank" href="https://www.paypal.me/morgul" style="white-space: nowrap">
+							<i class="fa fa-paypal"></i> Donate
+						</a>
+                    </div>
+				</div>
 				<p>
 					PokeGoNav is an open source project to map Pokémon spawn locations, Gyms and Pokéstops. Its
 					intention is to help Trainers see where certain types of Pokémon spawn, and provide useful tools
@@ -33,7 +38,7 @@
 					PokeGoNav is made with <i class="fa fa-heart"></i>, and is hosted personally, by an individual, at their expense. Please be respectful and conscientious.
 				</p>
 				<p>
-					If you would like to show your appreciation, please, send a <a href="https://www.paypal.me/morgul">donation</a>.
+					If you would like to show your appreciation, please, send a <a target="_blank" href="https://www.paypal.me/morgul">donation</a>.
 				</p>
 				<p class="text-center text-muted">
 					<small>PokeGoNav is <b>NOT</b> associated with Niantic, The Pokémon Company, or Nintendo.</small>
@@ -55,15 +60,24 @@
 	#links {
 		position: absolute;
 		bottom: 10px;
-		width: 200px;
+		width: 210px;
 		left: 10px;
 		z-index: 9301;
 
+		a.btn {
+			background-color: rgba(250, 250, 250, 0.9);
+
+			&:hover {
+				background-color: #bb381e;
+			}
+		}
+
 		@media(max-width: 450px)
 		{
-			right: 10px;
+			left: 5px;
+			right: 5px;
 			width: auto;
-			bottom: 80px;
+			bottom: 84px;
 		}
 	}
 </style>
