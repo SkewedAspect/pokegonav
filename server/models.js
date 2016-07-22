@@ -42,6 +42,15 @@ db.Portal = thinky.createModel('portal', {
 
 //----------------------------------------------------------------------------------------------------------------------
 
+db.Announcement = thinky.createModel('announcement', {
+    id: type.string(),
+    type: type.string().enum(['info', 'warn', 'critical']).default('info'),
+    summary: type.string().required(),
+    content: type.string().optional()
+});
+
+//----------------------------------------------------------------------------------------------------------------------
+
 export default db;
 
 //----------------------------------------------------------------------------------------------------------------------
