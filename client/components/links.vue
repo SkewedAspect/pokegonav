@@ -21,7 +21,7 @@
                         <small>build v{{ package.version }} (<a target="_blank" href="https://github.com/SkewedAspect/pokegonav/releases/tag/v{{ package.version }}">Details</a>)</small>
 					</div>
                     <div class="col-xs-6 text-right">
-                        <a target="_blank" href="https://github.com/SkewedAspect/pokegonav" style="white-space: nowrap">
+                        <a target="_blank" href="https://github.com/SkewedAspect/pokegonav" style="white-space: nowrap; margin-right: 10px;">
 							<i class="fa fa-github"></i> GitHub Project
 						</a>
                         <a target="_blank" href="https://www.paypal.me/morgul" style="white-space: nowrap">

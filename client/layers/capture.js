@@ -57,7 +57,6 @@ class CapturePointsLayer {
 
     _styleFunction(feature, resolution)
     {
-
         var pokeID = feature.get('pokemonID');
         if(_.isEmpty(stateSvc.state.filter) || pokeID == stateSvc.state.filter)
         {

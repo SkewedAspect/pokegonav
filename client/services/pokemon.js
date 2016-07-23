@@ -14,6 +14,26 @@ import stateSvc from './state'
 class PokemonService {
     constructor()
     {
+        this.types = [
+            'bug',
+            'grass',
+            'dark',
+            'ground',
+            'dragon',
+            'ice',
+            'electric',
+            'normal',
+            'fairy',
+            'poison',
+            'fighting',
+            'psychic',
+            'fire',
+            'rock',
+            'flying',
+            'steel',
+            'ghost',
+            'water'
+        ];
     } // end constructor
 
     get pokemon(){ return stateSvc.pokemon; }
