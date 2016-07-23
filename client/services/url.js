@@ -17,18 +17,24 @@ class URLService {
         this.queryParams = qs.parse(window.location.search.substr(1));
 
         // Parse Location
-        this.queryParams.location = _.map(this.queryParams.location.split(','), (part) => parseFloat(part));
+        if(this.queryParams.location)
+        {
+            this.queryParams.location = _.map(this.queryParams.location.split(','), (part) => parseFloat(part));
+        } // end if
 
         // Parse Zoom
         this.queryParams.zoom = parseInt(this.queryParams.zoom) || 12;
 
         // Parse Filter
-        this.queryParams.filter = [].concat(this.queryParams.filter);
-        this.queryParams.filter = _.map(this.queryParams.filter, (tag) =>
+        if(this.queryParams.filter)
         {
-            // Don't try to parse the types as integers
-            return _.includes(pokeSvc.types, tag) ? tag : _.padStart(tag, 3, '0');
-        });
+            this.queryParams.filter = [].concat(this.queryParams.filter);
+            this.queryParams.filter = _.map(this.queryParams.filter, (tag) =>
+            {
+                // Don't try to parse the types as integers
+                return _.includes(pokeSvc.types, tag) ? tag : _.padStart(tag, 3, '0');
+            });
+        } // end if
 
         // Parse layers
         if(this.queryParams.layers)
