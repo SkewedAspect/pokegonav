@@ -52,13 +52,13 @@
 
 				if(urlSvc.queryParams.layers)
 				{
-					var captureEnabled = _.includes(urlSvc.queryParams.layers, 'capture');
-					var gymsEnabled = _.includes(urlSvc.queryParams.layers, 'gyms');
-					var stopsEnabled = _.includes(urlSvc.queryParams.layers, 'stops');
+					this.state.layers.captured = _.includes(urlSvc.queryParams.layers, 'capture');
+					this.state.layers.gyms = _.includes(urlSvc.queryParams.layers, 'gyms');
+					this.state.layers.stops = _.includes(urlSvc.queryParams.layers, 'stops');
 
-					CaptureLayer.setVisible(captureEnabled);
-					PortalLayer.setGymsVisible(gymsEnabled);
-					PortalLayer.setStopsVisible(stopsEnabled);
+					CaptureLayer.setVisible(this.state.layers.captured);
+					PortalLayer.setGymsVisible(this.state.layers.gyms);
+					PortalLayer.setStopsVisible(this.state.layers.stops);
 				} // end if
 
 				if(urlSvc.queryParams.location)

@@ -138,6 +138,11 @@ class CapturePointsLayer {
         this.layer.setVisible(visible);
     } // end setVisible
 
+    isVisible()
+    {
+        return this.layer.getVisible();
+    } // end isVisible
+
     redraw()
     {
         this.layer.getSource().changed();

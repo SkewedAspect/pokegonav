@@ -11,6 +11,9 @@ import ol from 'openlayers';
 import PortalLayer from '../layers/portal';
 import CaptureLayer from '../layers/capture';
 
+// Services
+import stateSvc from './state';
+
 //----------------------------------------------------------------------------------------------------------------------
 
 class MapService extends EventEmitter {
@@ -68,6 +71,10 @@ class MapService extends EventEmitter {
             var extent = this.getExtent(50);
             CaptureLayer.update(extent, view.getZoom());
             PortalLayer.update(extent, view.getZoom());
+
+            // Store these in a way for the Vue to access them
+            stateSvc.state.center = ol.proj.toLonLat(view.getCenter());
+            stateSvc.state.zoom = view.getZoom();
         });
     } // end _setupEvents
 

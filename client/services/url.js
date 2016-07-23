@@ -39,7 +39,20 @@ class URLService {
 
     buildQueryString(params)
     {
-        return qs.stringify(params);
+        var queryString = "";
+
+        // Encode our location specially
+        if(params.location)
+        {
+            queryString += `location=${ params.location.join(',') }&`;
+            params.location = undefined;
+        } // end if
+
+        // Clean up params object
+        params = _.transform(params, (res, v, k) => { if(v) res[k] = v; });
+
+        // Return everything encoded.
+        return queryString += qs.stringify(params);
     } // end buildQueryString
 } // end URLService
 

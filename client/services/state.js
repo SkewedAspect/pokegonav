@@ -19,7 +19,14 @@ class StateService {
             pokemon: pokemon,
             autoUpdateView: false,
             geoEnabled: false,
-            filter: ""
+            layers: {
+                gyms: true,
+                stops: true,
+                captured: true
+            },
+            filter: "",
+            center: [0, 0],
+            zoom: 13
         };
 
         // Build getter/setters for pure JS modules to use

@@ -32,6 +32,9 @@
 				<option :value="id" v-for="(id, name) in pokemon | orderBy 'id'">{{ getDisplayName(id) }}</option>
 			</select>
         </div>
+		<div class="text-right" style="margin-top: 3px;">
+			<small><a :href="permalink">Permalink</a></small>
+		</div>
 	</div>
 </template>
 
@@ -56,8 +59,12 @@
 </style>
 
 <script type="text/babel">
+	import ol from 'openlayers';
+
 	import stateSvc from '../services/state';
+	import mapSvc from '../services/map';
 	import pokeSvc from '../services/pokemon';
+	import urlSvc from '../services/url';
 
 	var CaptureLayer;
 	var PortalLayer;
@@ -67,11 +74,6 @@
         {
             return {
 				filter: "",
-				layers: {
-					gyms: true,
-					stops: true,
-					captured: true
-				},
 				showLayers: false,
 				state: stateSvc.state
 			};
@@ -101,6 +103,7 @@
 		},
 		computed: {
 			pokemon(){ return this.state.pokemon; },
+			layers(){ return this.state.layers; },
 			filter: {
 				get: function()
 				{
@@ -109,9 +112,37 @@
 				set: function(val)
 				{
 					this.state.filter = val;
-
 					CaptureLayer.redraw();
 				}
+			},
+			center(){ return this.state.center; },
+			zoom(){ return this.state.zoom; },
+			permalink()
+			{
+				var layers = [];
+                if(this.layers.captured)
+                {
+                    layers.push('capture');
+                } // end if
+
+                if(this.layers.gyms)
+                {
+                    layers.push('gyms');
+                } // end if
+
+                if(this.layers.stops)
+                {
+                    layers.push('stops');
+                } // end if
+
+				var queryString = urlSvc.buildQueryString({
+					location: _.map(this.center, (coord) => coord.toFixed(5)),
+					zoom: this.zoom,
+					filter: this.state.filter,
+					layers: layers
+				});
+
+				return `${ location.protocol }//${ location.host }?${ queryString }`;
 			}
 		},
 		ready()
