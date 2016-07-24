@@ -17,7 +17,7 @@ class StyleService {
             return new ol.style.Style({
                 image: new ol.style.Icon({
                     anchor: [0.5, 0.5],
-                    src: `/static/icons/${ id }.png`
+                    src: `/static/icons/${ _.padStart(id, 3, '0') }.png`
                 })
             });
         });

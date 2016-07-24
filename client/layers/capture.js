@@ -62,7 +62,7 @@ class CapturePointsLayer {
         {
             if(resolution < 20)
             {
-                var style = styleSvc.getPokeStyle(pokeID);
+                var style = styleSvc.getPokeStyle(_.padStart(pokeID, 3, '0'));
 
                 if(style)
                 {
@@ -72,6 +72,8 @@ class CapturePointsLayer {
                     // Floor of 0.25 and Ceiling of 1.00
                     scale = Math.max(scale, .25);
                     scale = Math.min(scale, 1);
+
+                    scale = scale / 2;
 
                     // Set the scale
                     style.getImage().setScale(scale);
