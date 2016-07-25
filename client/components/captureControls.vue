@@ -54,6 +54,7 @@
 			<div class="modal-footer" slot="footer">
 				<button type="button"
 						class="btn btn-primary"
+						:disabled="isAddDisabled"
 						@click="save()">
 					<i class="fa fa-plus"></i>
 					Add
@@ -160,6 +161,11 @@
 			captureDisabled()
 			{
 				return !this.state.geoEnabled;
+			},
+			isAddDisabled()
+			{
+				var id = this.newPoint.pokemonID;
+				return id == "" || parseInt(id) < 0;
 			}
         },
 		methods: {
