@@ -4,10 +4,8 @@
 // @module models
 //----------------------------------------------------------------------------------------------------------------------
 
-import _ from 'lodash';
 import connect from 'thinky';
 
-import pokemonList from './data/pokemon.json';
 import config from '../config';
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -22,9 +20,8 @@ var db = { r, type, errors: thinky.Errors };
 
 db.CapturePoint = thinky.createModel('capture', {
     id: type.string(),
-    spawnID: type.string().optional(),
-    pokemonID: type.number().integer().optional(),
-    pokemon: type.string().enum(_.values(pokemonList)).optional(),
+    encounterID: type.string().optional(),
+    pokemonID: type.number().integer(),
     point: type.point().required(),
     incense: type.boolean().default(false),
     level: type.number().integer().min(1).optional(),

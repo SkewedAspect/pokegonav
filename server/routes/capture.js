@@ -77,9 +77,9 @@ router.put('/', function(req, resp)
     req.body.timestamp = req.body.timestamp === undefined ? new Date() : new Date(req.body.timestamp);
     var pointPromise;
 
-    if(req.body.spawnID)
+    if(req.body.encounterID)
     {
-        pointPromise = models.CapturePoint.getAll(req.body.spawnID, { index: 'spawnID' })
+        pointPromise = models.CapturePoint.getAll(req.body.encounterID, { index: 'encounterID' })
             .then((points) =>
             {
                 if(points.length > 0)
