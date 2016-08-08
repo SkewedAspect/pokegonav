@@ -59,6 +59,7 @@
 </style>
 
 <script type="text/babel">
+	import _ from 'lodash';
 	import ol from 'openlayers';
 
 	import stateSvc from '../services/state';
